@@ -485,7 +485,7 @@ function generateDiagram(timing) {
 		++row;
 	}
 
-	return canvas.map(row => row.join('')).join('\n');
+	return canvas.map(row => row.join('').trimEnd()).join('\n');
 }
 
 console.log('```');
