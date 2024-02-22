@@ -39,6 +39,17 @@ function diff(arr) {
 	return arr.map((cur, i) => i === 0 ? cur : cur - arr[i - 1]);
 }
 
+const register = {
+	headlights: 0,
+	D1: 0,
+	D2: 0,
+	D3: 0,
+	D4: 0,
+	'left indicator': 0,
+	'right indicator': 0,
+	'windshield wipers': 0,
+};
+
 /**
  * User-made signals.
  */
@@ -87,35 +98,75 @@ const signals = {
 	},
 	headlights: signalValues => {
 		const {B3, B2, B1, B0} = signalValues;
-		return B3 && !B2 && !B1 && !B0;
+		const correctNumber = !B2 && !B1 && !B0;
+		const left = correctNumber && B3;
+		const right = !correctNumber && register.headlights;
+		const out = left || right;
+		register.headlights = out;
+		return out;
 	},
 	D1: signalValues => {
 		const {B3, B2, B1, B0} = signalValues;
-		return B3 && !B2 && !B1 && B0;
+		const correctNumber = !B2 && !B1 && B0;
+		const left = correctNumber && B3;
+		const right = !correctNumber && register.D1;
+		const out = left || right;
+		register.D1 = out;
+		return out;
 	},
 	D2: signalValues => {
 		const {B3, B2, B1, B0} = signalValues;
-		return B3 && !B2 && B1 && !B0;
+		const correctNumber = !B2 && B1 && !B0;
+		const left = correctNumber && B3;
+		const right = !correctNumber && register.D2;
+		const out = left || right;
+		register.D2 = out;
+		return out;
 	},
 	D3: signalValues => {
 		const {B3, B2, B1, B0} = signalValues;
-		return B3 && !B2 && B1 && B0;
+		const correctNumber = !B2 && B1 && B0;
+		const left = correctNumber && B3;
+		const right = !correctNumber && register.D3;
+		const out = left || right;
+		register.D3 = out;
+		return out;
 	},
 	D4: signalValues => {
 		const {B3, B2, B1, B0} = signalValues;
-		return B3 && B2 && !B1 && !B0;
+		const correctNumber = B2 && !B1 && !B0;
+		const left = correctNumber && B3;
+		const right = !correctNumber && register.D4;
+		const out = left || right;
+		register.D4 = out;
+		return out;
 	},
 	'left indicator': signalValues => {
 		const {B3, B2, B1, B0} = signalValues;
-		return B3 && B2 && !B1 && B0;
+		const correctNumber = B2 && !B1 && B0;
+		const left = correctNumber && B3;
+		const right = !correctNumber && register['left indicator'];
+		const out = left || right;
+		register['left indicator'] = out;
+		return out;
 	},
 	'right indicator': signalValues => {
 		const {B3, B2, B1, B0} = signalValues;
-		return B3 && B2 && B1 && !B0;
+		const correctNumber = B2 && B1 && !B0;
+		const left = correctNumber && B3;
+		const right = !correctNumber && register['right indicator'];
+		const out = left || right;
+		register['right indicator'] = out;
+		return out;
 	},
 	'windshield wipers': signalValues => {
 		const {B3, B2, B1, B0} = signalValues;
-		return B3 && B2 && B1 && B0;
+		const correctNumber = B2 && B1 && B0;
+		const left = correctNumber && B3;
+		const right = !correctNumber && register['windshield wipers'];
+		const out = left || right;
+		register['windshield wipers'] = out;
+		return out;
 	},
 };
 
